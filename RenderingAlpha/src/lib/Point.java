@@ -1,6 +1,6 @@
 package RenderingAlpha.src.lib;
 
-import RenderingAlpha.src.run.Frame;
+import RenderingAlpha.src.run.Panel;
 
 import java.util.*;
 import java.awt.*;
@@ -13,30 +13,30 @@ public class Point {
 	public double z;
 	public Color color;
 	
-	public static Frame frame;
+	public static Panel panel;
 	
 	public Point() {
 		this.x = 0;
 		this.y = 0;
 		this.z = 0;
 		this.color = Color.white;
-		this.frame = null;
+		this.panel = null;
 	}
 	
-	public Point(double x, double y, double z, Frame frame) {
+	public Point(double x, double y, double z, Panel panel) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		this.color = Color.black;
-		this.frame = frame;
+		this.panel = panel;
 	}
 	
-	public Point(double x, double y, double z, Color color, Frame frame) {
+	public Point(double x, double y, double z, Color color, Panel panel) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		this.color = color;
-		this.frame = frame;
+		this.panel = panel;
 	}
 	
 	public double dist(Point p) {
@@ -54,8 +54,8 @@ public class Point {
 		int row = (int) temp.x;
 		int column = (int) temp.y;
 		
-		if (frame != null) {
-			Point[][] pointsArr = frame.pointsArr;
+		if (this.panel != null) {
+			Point[][] pointsArr = this.panel.pointsArr;
 			
 			//Checking if the point is out of the bounds of the screen
 			if (temp.x < pointsArr[0].length && temp.y < pointsArr.length && temp.x >= 0 && temp.y >= 0) {
@@ -65,11 +65,45 @@ public class Point {
 							//Will implement later, I intend to average the colors of two points that land on the same pixel and have the same z-value
 							// Main.points2D[(int) temp.x][(int) temp.y] = new Point(temp.x, temp.y, this.z, this.color);
 						// } else {
-							pointsArr[row][column] = new Point(temp.x, temp.y, this.z, this.color, frame);
+							pointsArr[row][column] = new Point(temp.x, temp.y, this.z, this.color, panel);
 						// }
 					}
 				} catch (NullPointerException e) {
-					pointsArr[row][column] = new Point(temp.x, temp.y, this.z, this.color, frame);
+					pointsArr[row][column] = new Point(temp.x, temp.y, this.z, this.color, this.panel);
+				}
+			}
+		}
+	}
+	
+	
+	public void addToPoints(Panel panel) {
+		Point temp = this.xy();
+		
+		//adding 0.5 to round to the nearest number, which should account for floating point precision errors
+		// temp.x += 0.5;
+		// temp.y += 0.5;
+		//FIX THIS IN THE TRI AND LINE ARRAY METHODS
+		
+		int row = (int) temp.x;
+		int column = (int) temp.y;
+		
+		if (panel != null) {
+			Point[][] pointsArr = panel.pointsArr;
+			
+			//Checking if the point is out of the bounds of the screen
+			if (temp.x < pointsArr[0].length && temp.y < pointsArr.length && temp.x >= 0 && temp.y >= 0) {
+				
+				try {
+					if (pointsArr[row][column].z >= this.z) {
+						// if (Main.points2D[(int) temp.x][(int) temp.y].z == this.z) {
+							//Will implement later, I intend to average the colors of two points that land on the same pixel and have the same z-value
+							// Main.points2D[(int) temp.x][(int) temp.y] = new Point(temp.x, temp.y, this.z, this.color);
+						// } else {
+							pointsArr[row][column] = new Point(temp.x, temp.y, this.z, this.color, panel);
+						// }
+					}
+				} catch (NullPointerException e) {
+					pointsArr[row][column] = new Point(temp.x, temp.y, this.z, this.color, panel);
 				}
 			}
 		}
@@ -77,9 +111,9 @@ public class Point {
 	
 	
 	public Point xy() {
-		double camX = frame.camX;
-		double camY = frame.camY;
-		double zSensitivity = frame.zSensitivity;
+		double camX = panel.camX;
+		double camY = panel.camY;
+		double zSensitivity = panel.zSensitivity;
 		
 		double rx = camX;
 		double ry = camY;
@@ -91,15 +125,15 @@ public class Point {
 		rx += (x - camX) * p;
 		ry += (y - camY) * p;
 		
-		Point result = new Point(rx, ry, 0, color, frame);
+		Point result = new Point(rx, ry, 0, color, panel);
 		
 		return result;
 	}
 	
 	public Point toXYZ(double z) {
-		double camX = frame.camX;
-		double camY = frame.camY;
-		double zSensitivity = frame.zSensitivity;
+		double camX = panel.camX;
+		double camY = panel.camY;
+		double zSensitivity = panel.zSensitivity;
 		
 		double p = Math.exp(-(z * zSensitivity));
 		
@@ -118,14 +152,14 @@ public class Point {
 		ry /= p;
 		
 		
-		Point result = new Point(rx, ry, z, color, frame);
+		Point result = new Point(rx, ry, z, color, panel);
 		
 		return result;
 	}
 	
 	@Override
 	public Point clone() {
-		return new Point(x, y, z, color, frame);
+		return new Point(x, y, z, color, panel);
 	}
 	
 	@Override
