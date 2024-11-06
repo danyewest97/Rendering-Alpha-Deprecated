@@ -31,6 +31,14 @@ public class Point {
 		this.panel = panel;
 	}
 	
+	public Point(double x, double y, double z, Color color) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.color = color;
+		this.panel = null;
+	}
+	
 	public Point(double x, double y, double z, Color color, Panel panel) {
 		this.x = x;
 		this.y = y;
@@ -48,8 +56,8 @@ public class Point {
 		
 		//adding 0.5 to round to the nearest number, which should account for floating point precision errors
 		// temp.x += 0.5;
-		// temp.y += 0.5;
-		//FIX THIS IN THE TRI AND LINE ARRAY METHODS
+		temp.y += 0.5;
+		//FIX THIS IN THE TRI AND LINE ARRAY METHODS IF POSSIBLE
 		
 		int row = (int) temp.x;
 		int column = (int) temp.y;
@@ -80,9 +88,9 @@ public class Point {
 		Point temp = this.xy();
 		
 		//adding 0.5 to round to the nearest number, which should account for floating point precision errors
-		// temp.x += 0.5;
-		// temp.y += 0.5;
-		//FIX THIS IN THE TRI AND LINE ARRAY METHODS
+		temp.x += 0.5;
+		temp.y += 0.5;
+		//FIX THIS IN THE TRI AND LINE ARRAY METHODS IF POSSIBLE
 		
 		int row = (int) temp.x;
 		int column = (int) temp.y;

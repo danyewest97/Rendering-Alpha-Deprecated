@@ -108,7 +108,7 @@ public class Panel extends JPanel {
 	}
 	
 	
-	public void updateImage() {
+	public BufferedImage updateImage() {
 		running = true;
 		
 		BufferedImage bImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -136,6 +136,7 @@ public class Panel extends JPanel {
 		image = bImage;
 		
 		running = false;
+		return image;
 	}
 	
 	
