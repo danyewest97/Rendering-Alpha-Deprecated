@@ -24,6 +24,7 @@ public class Panel extends JPanel {
 	public static int width;
 	public static int height;
 	
+	
 	public static Point[][] pointsArr;
 	
 	
@@ -155,12 +156,5 @@ public class Panel extends JPanel {
 	//Adds a point to the points array
 	public void addPoint(Point point) {
 		point.addToPoints(this);
-	}
-	
-	//Adds a point array to the points array
-	public void addPoints(ArrayList<Point> points) {
-		for (Point point : points) {
-			point.addToPoints(this);
-		}
 	}
 }
