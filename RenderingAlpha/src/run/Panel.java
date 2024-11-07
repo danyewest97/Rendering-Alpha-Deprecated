@@ -155,6 +155,35 @@ public class Panel extends JPanel {
 	
 	//Adds a point to the points array
 	public void addPoint(Point point) {
-		point.addToPoints(this);
+		addToPoints(point);
+	}
+	
+	
+	public void addToPoints(Point point) {
+		Point temp = point.xy(this);
+		
+		//adding 0.5 to round to the nearest number, which should account for floating point precision errors
+		temp.x += 0.5;
+		temp.y += 0.5;
+		
+		
+		int row = (int) temp.x;
+		int column = (int) temp.y;
+		
+		//Checking if the point is out of the bounds of the screen
+		if (temp.x < pointsArr[0].length && temp.y < pointsArr.length && temp.x >= 0 && temp.y >= 0) {
+			try {
+				if (pointsArr[row][column].z >= point.z) {
+					// if (Main.points2D[(int) temp.x][(int) temp.y].z == this.z) {
+						//Will implement later, I intend to average the colors of two points that land on the same pixel and have the same z-value
+						// Main.points2D[(int) temp.x][(int) temp.y] = new Point(temp.x, temp.y, this.z, this.color);
+					// } else {
+						pointsArr[row][column] = new Point(temp.x, temp.y, point.z, point.color);
+					// }
+				}
+			} catch (NullPointerException e) {
+				pointsArr[row][column] = new Point(temp.x, temp.y, point.z, point.color);
+			}
+		}
 	}
 }

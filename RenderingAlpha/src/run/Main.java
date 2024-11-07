@@ -19,7 +19,7 @@ public class Main {
 		t.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				panel1.addPoint(new Point(250, 250, 0, Color.black, panel1));
+				panel1.addPoint(new Point(250, 250, 0, Color.black));
 		
 				frame.repaint();
 			}
