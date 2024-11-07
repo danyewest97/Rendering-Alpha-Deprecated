@@ -6,3 +6,5 @@ RenderingAlpha/src/run/Frame.java
 RenderingAlpha/src/render/Renderer.java
 
 RenderingAlpha/src/lib/Point.java
+RenderingAlpha/src/lib/Line.java
+RenderingAlpha/src/lib/Tri.java
