@@ -158,6 +158,13 @@ public class Panel extends JPanel {
 		addToPoints(point);
 	}
 	
+	//Adds a point to the points array
+	public void addPoints(ArrayList<Point> points) {
+		for (Point point : points) {
+			addToPoints(point);
+		}
+	}
+	
 	
 	public void addToPoints(Point point) {
 		Point temp = point.xy(this);
